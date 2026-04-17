@@ -1,0 +1,271 @@
+export type Locale = "en" | "ar";
+
+export type LocaleSearchParams = Promise<{
+  lang?: string | string[];
+}>;
+
+export const locales: Locale[] = ["en", "ar"];
+
+export async function getLocale(searchParams?: LocaleSearchParams): Promise<Locale> {
+  const params = searchParams ? await searchParams : {};
+  const rawLocale = Array.isArray(params.lang) ? params.lang[0] : params.lang;
+
+  return rawLocale === "ar" ? "ar" : "en";
+}
+
+export function direction(locale: Locale) {
+  return locale === "ar" ? "rtl" : "ltr";
+}
+
+export function localizedHref(path: string, locale: Locale) {
+  if (locale === "en") {
+    return path;
+  }
+
+  const [withoutHash, hash] = path.split("#");
+  const separator = withoutHash.includes("?") ? "&" : "?";
+  const href = `${withoutHash}${separator}lang=ar`;
+
+  return hash ? `${href}#${hash}` : href;
+}
+
+export const dictionary = {
+  en: {
+    brand: "SportsBook",
+    language: "العربية",
+    nav: {
+      home: "Home",
+      fields: "Fields",
+      bookings: "Bookings",
+      owner: "Owner",
+      login: "Login",
+      register: "Register",
+      logout: "Logout",
+      bookNow: "Book Now",
+      browseFields: "Browse Fields",
+      addNew: "Add New",
+      addNewField: "Add New Field",
+      availability: "Availability",
+    },
+    home: {
+      eyebrow: "SportsBook",
+      title: "Find & book your perfect sports field.",
+      subtitle:
+        "Renters reserve open slots in minutes. Field owners manage listings, bookings, prices, and calendars from one place.",
+      searchPlaceholders: ["Sport", "Location", "Date"],
+      search: "Search",
+      renterFlow: "Renter Flow",
+      popularFields: "Popular Fields",
+      viewAll: "View all",
+      howItWorks: "How It Works",
+      ownerFlow: "Owner Flow",
+      ownerTitle: "List fields, set availability, and review bookings.",
+      ownerDashboard: "Owner Dashboard",
+      addField: "Add Field",
+    },
+    fields: {
+      eyebrow: "Browse Fields",
+      title: "Available sports fields",
+      description: "Search by sport, location, and time, then open a field to reserve an available slot.",
+      searchPlaceholder: "Search fields, sports, or location",
+      back: "Back to fields",
+      reviews: "reviews",
+      about: "About",
+      selectTime: "Select date & time",
+      hour: "hour",
+      view: "View",
+    },
+    auth: {
+      appName: "SPORT FIELD",
+      tagline: "Find. Book. Play.",
+      createAccount: "Create Account",
+      chooseAccess: "Choose renter or owner access.",
+      fullName: "Full Name",
+      email: "Email",
+      password: "Password",
+      forgotPassword: "Forgot Password?",
+      accountType: "Account Type",
+      renter: "Renter",
+      owner: "Field Owner",
+    },
+    renterBookings: {
+      eyebrow: "My Bookings",
+      title: "Upcoming reservations",
+      description: "Review confirmed and pending bookings, then open fields for another reservation.",
+      upcoming: "Upcoming",
+      past: "Past",
+    },
+    owner: {
+      workspace: "Owner Workspace",
+      account: "Ahmed fields account",
+      dashboard: "Dashboard",
+      myFields: "My Fields",
+      bookings: "Bookings",
+      calendar: "Calendar",
+      dashboardTitle: "Owner Dashboard",
+      dashboardDescription: "Track bookings, field performance, revenue, and recent activity.",
+      fieldsTitle: "My Fields",
+      fieldsDescription: "Manage active fields, hourly prices, photos, and booking readiness.",
+      addFieldTitle: "Add New Field",
+      addFieldDescription: "Add field details, pricing, photos, and the first availability schedule.",
+      bookingsTitle: "Manage Bookings",
+      bookingsDescription: "Review upcoming, past, and cancelled reservations across your fields.",
+      calendarTitle: "Availability Calendar",
+      calendarDescription: "Set open, booked, and partial hours so renters only reserve available time.",
+      bookingsOverview: "Bookings Overview",
+      recentBookings: "Recent Bookings",
+      recentActivities: "Recent Activities",
+      today: "Today",
+      open: "Open",
+      reserved: "Reserved",
+      filter: "Filter",
+      dateTime: "Date & Time",
+      field: "Field",
+      renter: "Renter",
+      status: "Status",
+      uploadPhotos: "Upload Photos",
+      saveField: "Save Field",
+      labels: ["Field Name", "Sport Type", "Location", "Price per Hour (SAR)"],
+      descriptionLabel: "Description",
+      month: "February 2024",
+      available: "Available",
+      booked: "Booked",
+      partial: "Partial",
+      stats: ["Total Fields", "Upcoming", "This Month", "Rating"],
+      activities: ["New field added", "Booking created", "Payment received"],
+      times: ["Just now", "5 min ago", "10 min ago"],
+    },
+    status: {
+      Confirmed: "Confirmed",
+      Pending: "Pending",
+      Cancelled: "Cancelled",
+    },
+    sports: {
+      Football: "Football",
+      Basketball: "Basketball",
+      Tennis: "Tennis",
+      Badminton: "Badminton",
+      Volleyball: "Volleyball",
+      All: "All",
+    },
+  },
+  ar: {
+    brand: "سبورتس بوك",
+    language: "English",
+    nav: {
+      home: "الرئيسية",
+      fields: "الملاعب",
+      bookings: "حجوزاتي",
+      owner: "المالك",
+      login: "تسجيل الدخول",
+      register: "إنشاء حساب",
+      logout: "تسجيل الخروج",
+      bookNow: "احجز الآن",
+      browseFields: "تصفح الملاعب",
+      addNew: "إضافة جديد",
+      addNewField: "إضافة ملعب",
+      availability: "الأوقات",
+    },
+    home: {
+      eyebrow: "سبورتس بوك",
+      title: "اعثر على ملعبك المثالي واحجزه بسهولة.",
+      subtitle:
+        "يحجز اللاعبون الأوقات المتاحة خلال دقائق، ويدير أصحاب الملاعب القوائم والحجوزات والأسعار والتقويم من مكان واحد.",
+      searchPlaceholders: ["الرياضة", "الموقع", "التاريخ"],
+      search: "بحث",
+      renterFlow: "مسار المستأجر",
+      popularFields: "الملاعب الشائعة",
+      viewAll: "عرض الكل",
+      howItWorks: "كيف يعمل",
+      ownerFlow: "مسار المالك",
+      ownerTitle: "أضف الملاعب، وحدد الأوقات المتاحة، وتابع الحجوزات.",
+      ownerDashboard: "لوحة المالك",
+      addField: "إضافة ملعب",
+    },
+    fields: {
+      eyebrow: "تصفح الملاعب",
+      title: "الملاعب المتاحة",
+      description: "ابحث حسب الرياضة أو الموقع أو الوقت، ثم افتح الملعب لحجز وقت متاح.",
+      searchPlaceholder: "ابحث عن ملعب أو رياضة أو موقع",
+      back: "العودة إلى الملاعب",
+      reviews: "تقييم",
+      about: "حول الملعب",
+      selectTime: "اختر التاريخ والوقت",
+      hour: "ساعة",
+      view: "عرض",
+    },
+    auth: {
+      appName: "سبورت فيلد",
+      tagline: "ابحث. احجز. العب.",
+      createAccount: "إنشاء حساب",
+      chooseAccess: "اختر حساب مستأجر أو مالك ملعب.",
+      fullName: "الاسم الكامل",
+      email: "البريد الإلكتروني",
+      password: "كلمة المرور",
+      forgotPassword: "نسيت كلمة المرور؟",
+      accountType: "نوع الحساب",
+      renter: "مستأجر",
+      owner: "مالك ملعب",
+    },
+    renterBookings: {
+      eyebrow: "حجوزاتي",
+      title: "الحجوزات القادمة",
+      description: "راجع الحجوزات المؤكدة والمعلقة، ثم افتح الملاعب لحجز جديد.",
+      upcoming: "القادمة",
+      past: "السابقة",
+    },
+    owner: {
+      workspace: "مساحة المالك",
+      account: "حساب ملاعب أحمد",
+      dashboard: "لوحة التحكم",
+      myFields: "ملاعبي",
+      bookings: "الحجوزات",
+      calendar: "التقويم",
+      dashboardTitle: "لوحة المالك",
+      dashboardDescription: "تابع الحجوزات وأداء الملاعب والإيرادات والنشاطات الأخيرة.",
+      fieldsTitle: "ملاعبي",
+      fieldsDescription: "أدر الملاعب النشطة والأسعار والصور وجاهزية الحجز.",
+      addFieldTitle: "إضافة ملعب جديد",
+      addFieldDescription: "أضف تفاصيل الملعب والسعر والصور وأول جدول للأوقات المتاحة.",
+      bookingsTitle: "إدارة الحجوزات",
+      bookingsDescription: "راجع الحجوزات القادمة والسابقة والملغاة لكل ملاعبك.",
+      calendarTitle: "تقويم الأوقات المتاحة",
+      calendarDescription: "حدد الأوقات المتاحة والمحجوزة والجزئية حتى يرى المستأجرون الوقت الصحيح فقط.",
+      bookingsOverview: "نظرة على الحجوزات",
+      recentBookings: "أحدث الحجوزات",
+      recentActivities: "النشاطات الأخيرة",
+      today: "اليوم",
+      open: "متاح",
+      reserved: "محجوز",
+      filter: "تصفية",
+      dateTime: "التاريخ والوقت",
+      field: "الملعب",
+      renter: "المستأجر",
+      status: "الحالة",
+      uploadPhotos: "رفع الصور",
+      saveField: "حفظ الملعب",
+      labels: ["اسم الملعب", "نوع الرياضة", "الموقع", "السعر لكل ساعة (ر.س)"],
+      descriptionLabel: "الوصف",
+      month: "فبراير 2024",
+      available: "متاح",
+      booked: "محجوز",
+      partial: "جزئي",
+      stats: ["إجمالي الملاعب", "الحجوزات القادمة", "هذا الشهر", "التقييم"],
+      activities: ["تمت إضافة ملعب", "تم إنشاء حجز", "تم استلام دفعة"],
+      times: ["الآن", "قبل 5 دقائق", "قبل 10 دقائق"],
+    },
+    status: {
+      Confirmed: "مؤكد",
+      Pending: "قيد الانتظار",
+      Cancelled: "ملغي",
+    },
+    sports: {
+      Football: "كرة القدم",
+      Basketball: "كرة السلة",
+      Tennis: "تنس",
+      Badminton: "بادمنتون",
+      Volleyball: "كرة الطائرة",
+      All: "الكل",
+    },
+  },
+} as const;
